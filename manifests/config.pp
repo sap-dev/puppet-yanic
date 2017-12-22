@@ -2,8 +2,8 @@ class yanic::config inherits yanic {
 
   concat { '/etc/yanic.conf':
     ensure         => present,
-    owner          => 'yanic',
-    group          => 'yanic',
+    owner          => 'root',
+    group          => 'root',
   }
 
   concat::fragment { 'yanc-conf-top':
