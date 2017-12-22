@@ -59,6 +59,22 @@ class yanic::install inherits yanic {
   exec { "yanic mkdir dir_database_connection_logging_path":
     command => "/bin/mkdir -p ${dir_database_connection_logging_path}",
     unless => "/usr/bin/test -d ${dir_database_connection_logging_path}",
+  } ->
+  [ "${webserver_webroot}",
+    "${dir_nodes_state_path}",
+    "{dir_nodes_output_meshviewer_ffrgb_path}",
+    "${dir_nodes_output_meshviewer_nodes_path}",
+    "${dir_nodes_output_meshviewer_graph_path}",
+    "${dir_nodes_output_nodelist_path}",
+    "${dir_database_connection_logging_path}" ].each |$x] {
+    if(!defined(File[$x])) {
+      file { "${x}":
+        ensure: directory,
+        owner: 'yanic',
+        group: 'yanic',
+        mode: '0755'
+      }
+    }
   }
 
 }
