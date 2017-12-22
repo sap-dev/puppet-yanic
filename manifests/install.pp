@@ -66,7 +66,7 @@ class yanic::install inherits yanic {
     "${dir_nodes_output_meshviewer_nodes_path}",
     "${dir_nodes_output_meshviewer_graph_path}",
     "${dir_nodes_output_nodelist_path}",
-    "${dir_database_connection_logging_path}" ].each |$x] {
+    "${dir_database_connection_logging_path}" ].each |$x| {
     if(!defined(File[$x])) {
       file { "${x}":
         ensure: directory,
