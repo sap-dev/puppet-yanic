@@ -13,6 +13,7 @@ class yanic::params {
   $nodes_enable        = true
   $nodes_state_path    = '/var/lib/yanic/state.json'
   $nodes_prune_after   = '7d'
+  $nodes_save_interval = '5s'
   $nodes_offline_after = '10m'
 
   $nodes_output_meshviewer_ffrgb_enable = true

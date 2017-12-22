@@ -28,6 +28,7 @@ class yanic::config inherits yanic {
       nodes_enable                                               => $nodes_enable,
       nodes_state_path                                           => $nodes_state_path,
       nodes_prune_after                                          => $nodes_prune_after,
+      nodes_save_interval                                        => $nodes_save_interval,
       nodes_offline_after                                        => $nodes_offline_after,
       nodes_output_meshviewer_ffrgb_enable                       => $nodes_output_meshviewer_ffrgb_enable,
       nodes_output_meshviewer_ffrgb_path                         => $nodes_output_meshviewer_ffrgb_path,

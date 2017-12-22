@@ -39,6 +39,7 @@ class { 'yanic':
   nodes\_enable                                                      => true,
   nodes\_state\_path                                                 => '/var/lib/yanic/state.json',
   nodes\_prune\_after                                                => '7d',
+  nodes\_save\_interval                                              => '5s',
   nodes\_offline\_after                                              => '10m',
   nodes\_output\_meshviewer\_ffrgb\_enable                           => true,
   nodes\_output\_meshviewer\_ffrgb\_path                             => '/var/www/html/meshviewer/data/meshviewer.json',

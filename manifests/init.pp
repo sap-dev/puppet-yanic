@@ -10,6 +10,7 @@ class yanic (
   Boolean       $nodes_enable                                               = $yanic::params::nodes_enable,
   String        $nodes_state_path                                           = $yanic::params::nodes_state_path,
   String        $nodes_prune_after                                          = $yanic::params::nodes_prune_after,
+  String        $nodes_save_interval                                        = $yanic::params::nodes_save_interval,
   String        $nodes_offline_after                                        = $yanic::params::nodes_offline_after,
   Boolean       $nodes_output_meshviewer_ffrgb_enable                       = $yanic::params::nodes_output_meshviewer_ffrgb_enable,
   String        $nodes_output_meshviewer_ffrgb_path                         = $yanic::params::nodes_output_meshviewer_ffrgb_path,

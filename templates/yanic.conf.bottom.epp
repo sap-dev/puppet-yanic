@@ -6,6 +6,7 @@
       $nodes_enable,
       $nodes_state_path,
       $nodes_prune_after,
+      $nodes_save_interval
       $nodes_offline_after,
       $nodes_output_meshviewer_ffrgb_enable,
       $nodes_output_meshviewer_ffrgb_path,
