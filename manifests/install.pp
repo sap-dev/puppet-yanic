@@ -69,10 +69,10 @@ class yanic::install inherits yanic {
     "${dir_database_connection_logging_path}" ].each |$x| {
     if(!defined(File[$x])) {
       file { "${x}":
-        ensure: directory,
-        owner: 'yanic',
-        group: 'yanic',
-        mode: '0755'
+        ensure => directory,
+        owner  => 'yanic',
+        group  => 'yanic',
+        mode   => '0755'
       }
     }
   }
