@@ -26,11 +26,11 @@ class yanic::install inherits yanic {
     source => 'puppet:///modules/yanic/yanic.binary'
   } ->
   file { '/lib/systemd/system/yanic.service':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => 'puppet:///modules/yanic/yanic.service'
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/yanic/yanic.service'
   } ->
   exec { "yanic mkdir webserver_webroot":
     command => "/bin/mkdir -p ${webserver_webroot}",
