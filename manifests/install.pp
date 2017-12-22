@@ -63,7 +63,7 @@ class yanic::install inherits yanic {
 
   [ "${webserver_webroot}",
     "${dir_nodes_state_path}",
-    "{dir_nodes_output_meshviewer_ffrgb_path}",
+    "${dir_nodes_output_meshviewer_ffrgb_path}",
     "${dir_nodes_output_meshviewer_nodes_path}",
     "${dir_nodes_output_meshviewer_graph_path}",
     "${dir_nodes_output_nodelist_path}",
