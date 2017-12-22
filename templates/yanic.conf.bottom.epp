@@ -171,7 +171,7 @@ password = "<%= $database_connection_influxdb_password %>"
 # some usefull e.g.:
 #system   = "productive"
 #site     = "ffhb"
-<%= $database_connection_influxdb_tags.map |$x|{ "${x['key']} = \"${x['value']}\"\n"} %>
+<%= $database_connection_influxdb_tags.map |$x|{ "${x['key']} = \"${x['value']}\""}.join("\n") %>
 
 # Logging
 [[database.connection.logging]]
