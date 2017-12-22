@@ -1,0 +1,191 @@
+<%- | $respondd_sites,
+      $respondd_port,
+      $webserver_enable,
+      $webserver_bind,
+      $webserver_webroot,
+      $nodes_enable,
+      $nodes_state_path,
+      $nodes_prune_after,
+      $nodes_offline_after,
+      $nodes_output_meshviewer_ffrgb_enable,
+      $nodes_output_meshviewer_ffrgb_path,
+      $nodes_output_meshviewer_ffrgb_filter_no_owner,
+      $nodes_output_meshviewer_ffrgb_filter_blacklist,
+      $nodes_output_meshviewer_ffrgb_filter_has_location,
+      $nodes_output_meshviewer_ffrgb_filter_in_area_latitude_min,
+      $nodes_output_meshviewer_ffrgb_filter_in_area_latitude_max,
+      $nodes_output_meshviewer_ffrgb_filter_in_area_longitude_min,
+      $nodes_output_meshviewer_ffrgb_filter_in_area_longitude_max,
+      $nodes_output_meshviewer_enable,
+      $nodes_output_meshviewer_version,
+      $nodes_output_meshviewer_nodes_path,
+      $nodes_output_meshviewer_graph_path,
+      $nodes_output_meshviewer_filter_no_owner,
+      $nodes_output_nodelist_enable,
+      $nodes_output_nodelist_path,
+      $nodes_output_nodelist_filter_no_owner,
+      $database_delete_after,
+      $database_delete_interval,
+      $database_connection_influxdb_enable,
+      $database_connection_influxdb_address,
+      $database_connection_influxdb_database,
+      $database_connection_influxdb_username,
+      $database_connection_influxdb_password,
+      $database_connection_influxdb_tags,
+      $database_connection_logging_enable,
+      $database_connection_logging_path,
+      $database_connection_graphite_enable,
+      $database_connection_graphite_address,
+      $database_connection_graphite_prefix
+| -%>
+]
+# list of sites to save stats for (empty for global only)
+sites            = [<%= $respondd_sites.map |$x|{ "\"${x}\""'}.join(', ') %>]
+# define a port to listen
+# if not set or set to 0 the kernel will use a random free port at its own
+port             = <%= $respondd_port %>
+
+
+# A little build-in webserver, which statically serves a directory.
+# This is useful for testing purposes or for a little standalone installation.
+[webserver]
+enable  = <%= $webserver_enable %>
+bind    = "<%= $webserver_bind %>"
+webroot = "<%= $webserver_webroot %>"
+
+
+[nodes]
+enable        = <%= $nodes_enable %>
+# Cache file
+# a json file to cache all data collected directly from respondd
+state_path    = "<%= $nodes_state_path %>"
+# prune data in RAM, cache-file and output json files (i.e. nodes.json)
+# that were inactive for longer than
+prune_after   = "<%= $nodes_prune_after %>"
+# Export nodes and graph periodically
+save_interval = "<%= $nodes_save_interval %>"
+# Set node to offline if not seen within this period
+offline_after = "<%= $nodes_offline_after %>"
+
+
+## [[nodes.output.example]]
+# Each output format has its own config block and needs to be enabled by adding:
+#enable = true
+#
+# For each output format there can be set different filters
+#[nodes.output.example.filter]
+#
+# Set to false, if you want the json files to contain the owner information
+#no_owner = true
+#
+# List of nodeids of nodes that should be filtered out, so they won't appear in output
+#blacklist = ["00112233445566", "1337f0badead"]
+#
+# set has_location to true if you want to include only nodes that have geo-coordinates set
+# (setting this to false has no sensible effect, unless you'd want to hide nodes that have coordinates)
+#has_location = true
+
+#[nodes.output.example.filter.in_area]
+# nodes outside this area are not shown on the map but are still listed as a node without coordinates
+#latitude_min = 34.30
+#latitude_max = 71.85
+#longitude_min = -24.96
+#longitude_max = 39.72
+
+
+# definition for the new more compressed meshviewer.json
+[[nodes.output.meshviewer-ffrgb]]
+enable   = <%= $nodes_output_meshviewer_ffrgb_enable %>
+path     = "<%= $nodes_output_meshviewer_ffrgb_path %>"
+
+[nodes.output.meshviewer-ffrgb.filter]
+no_owner = <%= $nodes_output_meshviewer_ffrgb_filter_no_owner %>
+blacklist = [<%= $nodes_output_meshviewer_ffrgb_filter_blacklist.map |$x|{ "\"${x}\""}.join(', ') %>]
+has_location = <%= $nodes_output_meshviewer_ffrgb_filter_has_location %>
+
+[nodes.output.meshviewer-ffrgb.filter.in_area]
+latitude_min = <%= $nodes_output_meshviewer_ffrgb_filter_in_area_latitude_min %>
+latitude_max = <%= $nodes_output_meshviewer_ffrgb_filter_in_area_latitude_max %>
+longitude_min = <%= $nodes_output_meshviewer_ffrgb_filter_in_area_longitude_min %>
+longitude_max = <%= $nodes_output_meshviewer_ffrgb_filter_in_area_longitude_max %>
+
+
+# definition for nodes.json
+[[nodes.output.meshviewer]]
+enable = <%= $nodes_output_meshviewer_enable %>
+# The structure version of the output which should be generated (i.e. nodes.json)
+# version 1 is accepted by the legacy meshviewer (which is the master branch)
+#   i.e. https://github.com/ffnord/meshviewer/tree/master
+# version 2 is accepted by the new versions of meshviewer (which are in the legacy develop branch or newer)
+#   i.e. https://github.com/ffnord/meshviewer/tree/dev
+#        https://github.com/ffrgb/meshviewer/tree/develop
+version    = <%= $nodes_output_meshviewer_version %>
+# path where to store nodes.json
+nodes_path = "<%= $nodes_output_meshviewer_nodes_path %>"
+# path where to store graph.json
+graph_path = "<%= $nodes_output_meshviewer_graph_path %>"
+
+[nodes.output.meshviewer.filter]
+no_owner = <%= $nodes_output_meshviewer_filter_no_owner %>
+
+
+# definition for nodelist.json
+[[nodes.output.nodelist]]
+enable = <%= $nodes_output_nodelist_enable %>
+path   = "<%= $nodes_output_nodelist_path %>"
+
+[nodes.output.nodelist.filter]
+no_owner = <%= $nodes_output_nodelist_filter_no_owner %>
+
+
+
+[database]
+# this will send delete commands to the database to prune data
+# which is older than:
+delete_after    = "<%= $database_delete_after %>"
+# how often run the cleaning
+delete_interval = "<%= $database_delete_interval %>"
+
+## [[database.connection.example]]
+# Each database-connection has its own config block and needs to be enabled by adding:
+#enable = true
+
+# Save collected data to InfluxDB.
+# There are the following measurments:
+#   node: store node specific data i.e. clients memory, airtime
+#   global: store global data, i.e. count of clients and nodes
+#   firmware: store the count of nodes tagged with firmware
+#   model: store the count of nodes tagged with hardware model
+[[database.connection.influxdb]]
+enable   = <%= $database_connection_influxdb_enable %>
+address  = "<%= $database_connection_influxdb_address %>"
+database = "<%= $database_connection_influxdb_database %>"
+username = "<%= $database_connection_influxdb_username %>"
+password = "<%= $database_connection_influxdb_password %>"
+
+# Tagging of the data (optional)
+[database.connection.influxdb.tags]
+# Tags used by Yanic would override the tags from this config
+# nodeid, hostname, owner, model and firmware are tags which are already used
+#tagname1 = "tagvalue 1"
+# some usefull e.g.:
+#system   = "productive"
+#site     = "ffhb"
+<%= $database_connection_influxdb_tags.map |$x|{ "${x['key']} = \"${x['value']}\"\n"} %>
+
+# Logging
+[[database.connection.logging]]
+enable   = <%= $database_connection_logging_enable %>
+path     = "<%= $database_connection_logging_path %>"
+
+# Graphite settings
+[[database.connection.graphite]]
+enable   = <%= $database_connection_graphite_enable %>
+address  = "<%= $database_connection_graphite_address %>"
+# Graphite is replacing every "." in the metric name with a slash "/" and uses
+# that for the file system hierarchy it generates. it is recommended to at least
+# move the metrics out of the root namespace (that would be the empty prefix).
+# If you only intend to run one community and only freifunk on your graphite node
+# then the prefix can be set to anything (including the empty string) since you
+# probably wont care much about "polluting" the namespace.
+prefix   = "<%= $database_connection_graphite_prefix %>"
