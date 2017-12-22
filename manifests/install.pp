@@ -32,25 +32,32 @@ class yanic::install inherits yanic {
     mode    => '0644',
     content => 'puppet:///modules/yanic/yanic.service'
   } ->
-  exec { "mkdir -p ${webserver_webroot}":
-    unless => "test -d ${webserver_webroot}",
+  exec { "yanic mkdir webserver_webroot":
+    command => "mkdir -p ${webserver_webroot}",
+    unless  => "test -d ${webserver_webroot}",
   } ->
-  exec { "mkdir -p ${dir_nodes_state_path}":
+  exec { "yanic mkdir dir_nodes_state_path":
+    command => "mkdir -p ${dir_nodes_state_path}",
     unless => "test -d ${dir_nodes_state_path}",
   } ->
-  exec { "mkdir -p ${dir_nodes_output_meshviewer_ffrgb_path}":
+  exec { "yanic mkdir dir_nodes_output_meshviewer_ffrgb_path":
+    command => "mkdir -p ${dir_nodes_output_meshviewer_ffrgb_path}",
     unless => "test -d ${dir_nodes_output_meshviewer_ffrgb_path}",
   } ->
-  exec { "mkdir -p ${dir_nodes_output_meshviewer_nodes_path}":
+  exec { "yanic mkdir dir_nodes_output_meshviewer_nodes_path":
+    command => "mkdir -p ${dir_nodes_output_meshviewer_nodes_path}",
     unless => "test -d ${dir_nodes_output_meshviewer_nodes_path}",
   } ->
-  exec { "mkdir -p ${dir_nodes_output_meshviewer_graph_path}":
+  exec { "yanic mkdir dir_nodes_output_meshviewer_graph_path":
+    command => "mkdir -p ${dir_nodes_output_meshviewer_graph_path}",
     unless => "test -d ${dir_nodes_output_meshviewer_graph_path}",
   } ->
-  exec { "mkdir -p ${dir_nodes_output_nodelist_path}":
+  exec { "yanic mkdir dir_nodes_output_nodelist_path":
+    command => "mkdir -p ${dir_nodes_output_nodelist_path}",
     unless => "test -d ${dir_nodes_output_nodelist_path}",
   } ->
-  exec { "mkdir -p ${dir_database_connection_logging_path}":
+  exec { "yanic mkdir dir_database_connection_logging_path":
+    command => "mkdir -p ${dir_database_connection_logging_path}",
     unless => "test -d ${dir_database_connection_logging_path}",
   }
 
