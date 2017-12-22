@@ -15,7 +15,7 @@ class yanic::install inherits yanic {
     ensure => present,
     system => true,
     shell  => '/bin/false',
-    home   => '/opt/yanic',
+    home   => '/var/lib/yanic',
     gid    => 'yanic'
   } ->
   file { '/usr/bin/yanic':
