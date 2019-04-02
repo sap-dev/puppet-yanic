@@ -6,7 +6,7 @@ define yanic::interface {
   concat::fragment { "yanic-configinterface-${title}":
     target  => '/etc/yanic.conf',
     order   => 1,
-    content => "\"${title}\",",
+    content => "ifname = \"${title}\"",
   }
 
 }
